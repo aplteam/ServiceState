@@ -1,4 +1,4 @@
-# Interface between SCM and APL =
+# Interface between SCM and APL
 
 
 ## Overview 
