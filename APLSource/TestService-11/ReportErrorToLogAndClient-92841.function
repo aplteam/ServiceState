@@ -1,0 +1,9 @@
+ ReportErrorToLogAndClient(obj msg);cs
+⍝ Only n case msg is not empty.
+ :If ~0∊⍴msg
+     {}Log msg
+     cs←⎕NS''
+     cs.Error←1
+     cs.ErrorMsg←msg
+     {}##.DRC.Respond obj cs                ⍝ Send message back
+ :EndIf

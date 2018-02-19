@@ -1,0 +1,6 @@
+ Log←{
+     ⍺←''
+     0∊⍴⍵:{⍬}{0∊⍴⍵:⍵ ⋄ myLogger.Log ⍵}⍺
+     _←⍵{~⍵:⍬ ⋄ 0⍴⍺}INI.CONFIG.logToSession
+     myLogger.Log ⍵
+ }

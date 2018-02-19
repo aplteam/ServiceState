@@ -1,0 +1,15 @@
+ MainLoop dummmy;buffer;data;event;obj;rc;r;msg;cs
+ Log INI.CONFIG.appshortname,' service started'
+ :While 0=INI.CONFIG.quit
+     ⎕DL 1
+     :If INI.CONFIG.letsCrash
+         . ⍝ Cause deliberate error; should be caught by error trapping.
+     :EndIf
+     :If (Log ##.ServiceState.CheckServiceMessages)##.ServiceState.IsRunningAsService
+         Log'The service is in the process of shutting down...'
+         :Leave
+     :EndIf
+     :If UserWantsQuit ⍬ ⋄ :Leave ⋄ :EndIf
+     HandleIniFiles                                    ⍝ Catch changes
+ :EndWhile
+⍝Done

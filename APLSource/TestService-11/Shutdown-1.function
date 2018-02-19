@@ -1,0 +1,3 @@
+ Shutdown msg
+ :Trap 0 ⋄ myLogger.Log INI.CONFIG.applongname,' shutting down ',msg ⋄ :EndTrap
+ Cleanup

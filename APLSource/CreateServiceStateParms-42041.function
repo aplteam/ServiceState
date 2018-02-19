@@ -1,0 +1,7 @@
+ CreateServiceStateParms←{
+     loggerInstance←⍵
+     ps←##.ServiceState.CreateParmSpace
+     ps.logFunction←'Log'
+     ps.logFunctionParent←loggerInstance
+     ps
+ }

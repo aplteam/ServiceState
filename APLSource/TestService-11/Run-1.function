@@ -1,0 +1,5 @@
+ Run dummy
+ #.FilesAndDirs.PolishCurrentDir
+ Init
+ MainLoop ⍬
+ Shutdown''

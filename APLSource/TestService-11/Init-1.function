@@ -1,0 +1,11 @@
+ Init;ps
+ ⎕THIS.(⎕IO ⎕ML)←0 3
+ HandleIniFiles
+ {}OpenLogFiles ⍬
+ #.ParameterSpace←#.HandleError.CreateParms
+ #.ParameterSpace.logFunction←'#.APLTreeServer.Log'
+ #.ParameterSpace.windowsEventSource←INI.CONFIG.appshortname
+ :If 0=INI.CONFIG.debug
+ :OrIf INI.CONFIG.catchErrors
+     ⎕TRAP←#.HandleError.SetTrap'#.ParameterSpace'
+ :EndIf

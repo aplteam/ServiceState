@@ -1,0 +1,5 @@
+ UserWantsQuit←{
+     ~INI.CONFIG.debug:0
+     0=⎕NC'n':0             ⍝ Runtime?
+     n.Quit.State           ⍝ Does user want quit?
+ }

@@ -1,0 +1,7 @@
+ msg←∆Execute_SC_Cmd command;cmd;rc
+⍝ Executes a SC (Service Control) command
+ msg←''
+ cmd←'SC ',command,' ',∆TestAppName
+ rc←#.Execute.Process cmd
+ →FailsIf 0≠0⊃rc
+ msg←1⊃rc

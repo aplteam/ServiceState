@@ -1,0 +1,5 @@
+ Off
+ :If ##.ServiceState.IsRunningAsService
+ :OrIf 0=##.APLTreeUtils.IsDevelopment
+     ⎕OFF
+ :EndIf

@@ -1,0 +1,7 @@
+ Cleanup
+ #.⎕EX'ParameterSpace'
+ 0 ⎕TKILL ⎕TNUMS~⎕TID   ⍝ Try to kill all threads but itself and the main thread
+ ⎕FUNTIE ⎕FNUMS
+ ⎕NUNTIE ⎕NNUMS
+ ⎕EX'.'
+ {}⎕WA  ⍝ Enforce garbage collection

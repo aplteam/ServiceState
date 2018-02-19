@@ -1,0 +1,4 @@
+ {r}←RunDebug debugFlag
+⍝ Run all test cases with DEBUG flag on
+⍝ If `debugFlag` is 1 then `RunDebug` stops just before executing any specific test case.
+ r←debugFlag #.Tester.RunDebug ⎕THIS

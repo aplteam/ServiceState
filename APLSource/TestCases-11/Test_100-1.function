@@ -1,0 +1,36 @@
+ R←Test_100(stopFlag batchFlag);⎕TRAP;logfile;msg
+⍝ Start the test service, pause, resume and finally stop it.
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←∆Failed
+
+ logfile←∆HOME,TodaysLogFileName
+ #.FilesAndDirs.DeleteFile logfile
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'start'
+ ∆Delay 2
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
+ →FailsIf~∨/'RUNNING'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'pause'
+ ∆Delay 2
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
+ →FailsIf~∨/'PAUSED'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'continue'
+ ∆Delay 2
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
+ →FailsIf~∨/'RUNNING'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'stop'
+ ∆Delay 2
+
+ →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
+ →FailsIf~∨/'STOPPED'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+
+ →FailsIf 0=#.FilesAndDirs.Exists logfile
+
+ R←∆OK

@@ -1,0 +1,3 @@
+ HandleIniFiles
+ INI←(⎕NEW #.IniFiles(,⊂'INIs\TestService')).Convert ⎕NS''
+⍝Done

@@ -1,0 +1,6 @@
+ r←GetStopOnReceiveFlag
+ :If 0<⎕NC'n'
+     r←n.StopOnReceive.State
+ :Else
+     r←0
+ :EndIf

@@ -1,0 +1,9 @@
+ Cleanup;rc
+ :If 0<⎕NC'∆TestAppName'
+     rc←#.Execute.Process'cmd /c ',∆HOME,'\uninstall.bat'
+     ⍎((0≠0⊃rc)∨9≠2⊃rc)/'.'
+     ∆Delay 3
+     {}##.CreateApp.Cleanup ∆HOME
+     ⎕WSID←∆WSID
+     ⎕EX¨'∆TestAppName' '∆WSID' '∆HOME'
+ :EndIf

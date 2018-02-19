@@ -1,0 +1,8 @@
+ OpenLogFiles←{
+⍝ Opens a log file if enforced by the INI file
+     ~INI.CONFIG.logging:⍬
+     ⎕THIS.myLogger←⎕NEW #.Logger(,⊂INI.CONFIG.logFolder)
+     _←myLogger.Log INI.CONFIG.applongname' started with these parameters:'
+     _←myLogger.Log INI.List''
+     ⍬
+ }

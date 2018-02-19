@@ -1,0 +1,3 @@
+ {r}←∆LogFns msg
+⍝ Function used to test setting the "logFunction" property of ##.ServiceState
+ ⎕←r←msg

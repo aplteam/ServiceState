@@ -1,0 +1,27 @@
+ r←Initial;rc;more;cmd
+ #.Tester.EstablishHelpersIn ⎕THIS
+ {}⎕SE.SALT.Save'##.ServiceState ',#.FilesAndDirs.PWD,'\TestService\ServiceState -noprompt'
+ :If 0=##.WinSys.IsRunningAsAdmin
+     ⎕←'*** Sorry, you need admin rights in order to run the test suite.'
+     r←0
+ :Else
+     r←1
+     ∆TestAppName←'TestService'
+     ∆WSID←⎕WSID
+     (rc more ∆HOME)←##.CreateApp.Run 1 ∆TestAppName
+     ⍎(0≠rc)/'.'
+
+     cmd←'SC query ',∆TestAppName
+     rc←##.Execute.Process cmd
+     →FailsIf 0≠0⊃rc
+
+     :If 1060≠2⊃rc       ⍝ If the service does exist...
+         cmd←'cmd /c ',∆HOME,'\uninstall.bat'  ⍝ ... we uninstall it
+         rc←##.Execute.Process cmd
+         →FailsIf(0≠0⊃rc)∨9≠2⊃rc
+     :EndIf
+
+     cmd←'cmd /c ',∆HOME,'\install.bat'
+     rc←##.Execute.Process cmd
+     →FailsIf(0≠0⊃rc)∨9≠2⊃rc
+ :EndIf

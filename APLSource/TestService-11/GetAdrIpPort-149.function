@@ -1,0 +1,11 @@
+ GetAdrIpPort←{
+ ⍝ ⍵ is the Conga object name.
+ ⍝ Returns a string build from IP+Port, IP and Port
+     name←{⍵↑⍨2⍳⍨+\⍵='.'}⍵
+     #.DRC.GetProp'PeerAddr'
+     buffer←#.DRC.PeerAddr name             ⍝ Get Conga's "PeerAddr" property
+     1=≡buffer:SigErr 97                    ⍝ Signal TCP error if appropriate
+     (Addr Port)←buffer[1 3]                ⍝ Get Conga's "LocalAddr" property
+     IP←{1↓⍵/⍨{≠\⍵}⍵∊'[]'}Addr              ⍝ Get IP from Addr
+     Addr IP Port
+ }

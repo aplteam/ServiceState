@@ -1,0 +1,8 @@
+ OpenServiceLogfile←{
+     ps←#.Logger.CreatePropertySpace
+     ps.autoReOpen←0
+     ps.filename←'service'
+     ps.filenameType←''
+     _←#.FilesAndDirs.DeleteFile ps.filename,'.',ps.extension
+     ⎕NEW #.Logger(,⊂ps)
+ }

@@ -1,0 +1,4 @@
+ LogError←{
+     _←⍵{~⍵:⍬ ⋄ 0⍴⎕←⍺}INI.CONFIG.logToSession
+     Log(⊂'*** ERROR'),{2=≡⍵:⍵ ⋄ ⊂⍵}⍵
+ }
