@@ -1,8 +1,12 @@
-# Interface between SCM and APL
+# Interface between the Windows Service Control Manager and APL
+
+
+`ServiceState` is a member of the APLTree library. The library is a collection of classes etc. that aim to support the Dyalog APL programmer. Search GitHub for "apltree" and you will find solutions to many every-day problems Dyalog APL programmers might have to solve.
 
 
 ## Overview 
-```ServiceState``` is a namespace script that offers an interface between the Windows SCM (Service Control Manager) and a Dyalog APL application running as a service.
+
+`ServiceState` is a namespace script that offers an interface between the Windows SCM (Service Control Manager) and a Dyalog APL application running as a service.
  
 In you application workspace you need to have a function on `⎕LX` similar to this:
 
@@ -33,6 +37,7 @@ Remarks:
 **[6]**: We need to execute `⎕DQ '.'` in order to make sure that the interpreter processes all events.
 
 **[7]**: At this stage we need to execute `⎕OFF`; that's what `#.TestService.Off` is doing.
+
 
 ## The application 
 
