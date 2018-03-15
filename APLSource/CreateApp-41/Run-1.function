@@ -12,11 +12,11 @@
      CreateNewDirectory targetDir,'\Errors'
      CreateNewDirectory targetDir,'\INIs'
      (rc more)←'TestService\INIs\TestService.ini'#.FilesAndDirs.CopyTo targetDir,'\INIs\'
-     {⍵:.}0≠rc
+     Assert 0=rc
      (rc more)←'..\_Source\ServiceState.dyalog'#.FilesAndDirs.CopyTo targetDir,'\'
-     {⍵:.}0≠rc
+     Assert 0=rc
      (rc more)←'TestService\TestService.dws'#.FilesAndDirs.CopyTo targetDir,'\'
-     {⍵:.}0≠rc
+     Assert 0=rc
      rc←0 ⋄ more←'Done'
  :Else
      rc←1 ⋄ more←'Invalid right argument, nothing done'

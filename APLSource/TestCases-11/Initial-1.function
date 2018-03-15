@@ -9,7 +9,7 @@
      ∆TestAppName←'TestService'
      ∆WSID←⎕WSID
      (rc more ∆HOME)←##.CreateApp.Run 1 ∆TestAppName
-     ⍎(0≠rc)/'.'
+     Assert 0=rc
 
      cmd←'SC query ',∆TestAppName
      rc←##.Execute.Process cmd
@@ -23,5 +23,5 @@
 
      cmd←'cmd /c ',∆HOME,'\install.bat'
      rc←##.Execute.Process cmd
-     →FailsIf(0≠0⊃rc)∨9≠2⊃rc
+     Assert(0=0⊃rc)∨(9=2⊃rc)
  :EndIf
