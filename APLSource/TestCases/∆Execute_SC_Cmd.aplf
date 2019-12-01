@@ -2,6 +2,7 @@
 ⍝ Executes a SC (Service Control) command
  msg←''
  cmd←'SC ',command,' ',∆TestAppName
- rc←#.Execute.Process cmd
- →FailsIf 0≠0⊃rc
- msg←1⊃rc
+ rc←##.Execute.Process cmd
+ →T.FailsIf 0≠0⊃rc
+ msg←1⊃rc 
+

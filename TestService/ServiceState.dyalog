@@ -73,28 +73,15 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵↑⍨-¯1+'.'⍳⍨⌽⍵}⍕⎕THIS)'1.7.0' '2018-02-19'
+      r←({⍵↑⍨-¯1+'.'⍳⍨⌽⍵}⍕⎕THIS)'1.7.0.2' '2018-02-19'
     ∇
 
     ∇ History
     :Access Public Shared
       ⍝ * 1.7.0:
       ⍝   * Converted from the APL wiki to GitHub
-      ⍝ * 1.6.0:
-      ⍝   * `timeout` reduced from 10 to 5 seconds. 10 seconds may result in Windows
-      ⍝      error messages.
-      ⍝   * Method `Off` added.
-      ⍝   * Messages written to the log file are now clear about what is requested.
-      ⍝   * The option to allow the user a Ride was removed from `ServiceState`.
-      ⍝   * Testcases's `Initial` now indicates success via the result (admin rights!),
-      ⍝   * Function `History` introduced.
-      ⍝   * Typos in documentation fixed.
-      ⍝   * Now managed by acre 3.
-      ⍝ * 1.5.0:
-      ⍝   * Bug fix: the "ride" parameter worked with 14.1 and earlier only.
-      ⍝ * 1.4.0:
-      ⍝   * Requires at least Dyalog 15.0 Unicode.
-      ⍝ * 1.3.0: Doc converted to Markdown (requires at least ADOC 5.0).
+      ⍝\\
+      ⍝ For information regarding older versions see <https://github.com/aplteam/ServiceState/releases>
     ∇
 
     ∇ r←SERVICE_CONTINUE_PENDING

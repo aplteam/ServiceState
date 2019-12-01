@@ -1,3 +1,0 @@
- {r}←RunBatchTests
-⍝ Run all batch tests
- r←#.Tester.RunBatchTests ⎕THIS

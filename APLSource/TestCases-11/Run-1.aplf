@@ -1,3 +1,0 @@
- {r}←Run
-⍝ Run all test cases
- r←#.Tester.Run ⎕THIS

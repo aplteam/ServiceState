@@ -1,5 +1,5 @@
  {r}←CreateNewDirectory name;success
  r←⍬
- success←#.FilesAndDirs.MkDir name
+ success←##.FilesAndDirs.MkDir name
  {⍵:.}0=success
 ⍝Done

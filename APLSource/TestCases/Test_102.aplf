@@ -2,22 +2,22 @@
 ⍝ Check error trapping
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  logfile←∆HOME,TodaysLogFileName
- #.FilesAndDirs.DeleteFile logfile
+ ##.FilesAndDirs.DeleteFile logfile
 
  logFilename←∆HOME,'\Inis\TestService.ini'
  errorFolder←∆HOME,'\Errors\'
- →GoToTidyUp~0∊⍴#.FilesAndDirs.ListFiles errorFolder,'*'
- myIni←⎕NEW #.IniFiles(,⊂logFilename)
+ →T.GoToTidyUp~0∊⍴##.FilesAndDirs.ListFiles errorFolder,'*'
+ myIni←⎕NEW ##.IniFiles(,⊂logFilename)
  myIni[⊂'Config:letsCrash']←1
  myIni.Save logFilename
 
- →FailsIf 0∊⍴msg←∆Execute_SC_Cmd'start'
+ →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'start'
  ∆Delay 3
- →GoToTidyUp 0∊⍴#.FilesAndDirs.ListFiles errorFolder,'*'
- R←∆OK
+ →T.GoToTidyUp 0∊⍴##.FilesAndDirs.ListFiles errorFolder,'*'
+ R←T._OK
 
 ∆TidyUp:
- #.FilesAndDirs.DeleteFile #.FilesAndDirs.ListFiles errorFolder
+ ##.FilesAndDirs.DeleteFile ##.FilesAndDirs.ListFiles errorFolder

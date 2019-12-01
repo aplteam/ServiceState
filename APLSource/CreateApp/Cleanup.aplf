@@ -1,11 +1,11 @@
  r←Cleanup name;rc;flag;counter
 ⍝ Delete the folders "name" recursively.
  r←⍬
- :If #.FilesAndDirs.Exists name
+ :If ##.FilesAndDirs.Exists name
      flag←0
      counter←0
      :Repeat
-         rc←#.FilesAndDirs.RmDir name
+         rc←##.FilesAndDirs.RmDir name
          :If 0=0⊃rc
              flag←1
          :Else

@@ -2,11 +2,11 @@
 ⍝ Test the Init function
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
- R←∆Failed
+ R←T._Failed
 
  ##.ServiceState.Init ⍬
- →FailsIf 5≠##.ServiceState.timeout
- →FailsIf''≢##.ServiceState.logFunction
+ →T.FailsIf 5≠##.ServiceState.timeout
+ →T.FailsIf''≢##.ServiceState.logFunction
 
  ps←##.ServiceState.CreateParmSpace
  ps.timeout←20
@@ -16,17 +16,17 @@
  ps.logFunction←'Log'
  ps.logFunctionParent←#.TEMP
  ##.ServiceState.Init ps
- →FailsIf ##.ServiceState.timeout≠20
- →FailsIf ##.ServiceState.logFunction≢'Log'
- →FailsIf ##.ServiceState.logFunctionParent≢#.TEMP
+ →T.FailsIf ##.ServiceState.timeout≠20
+ →T.FailsIf ##.ServiceState.logFunction≢'Log'
+ →T.FailsIf ##.ServiceState.logFunctionParent≢#.TEMP
 
  ps←##.ServiceState.CreateParmSpace
  ps.notAllowed←1
  :Trap 0
      ##.ServiceState.Init ps
-     →FailsIf 1
+     →T.FailsIf 1
  :Else
-     →FailsIf'Invalid parameter'≢0⊃⎕DM
+     →T.FailsIf'Invalid parameter'≢0⊃⎕DM
  :EndTrap
 
- R←∆OK
+ R←T._OK

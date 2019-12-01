@@ -2,20 +2,20 @@
 ⍝ Right argument is insurance against accidental call.
 ⍝ Creates all folders and files needed by the application "TestService".
  :If 1=1⍴∊flag
-     #.FilesAndDirs.PolishCurrentDir
-     'Cannot see TestService\ folder?!'⎕SIGNAL 11/⍨0=#.FilesAndDirs.Exists'TestService'
-     targetDir←#.FilesAndDirs.GetTempPath,name
+     ##.FilesAndDirs.PolishCurrentDir
+     'Cannot see TestService\ folder?!'⎕SIGNAL 11/⍨0=##.FilesAndDirs.Exists'TestService'
+     targetDir←##.FilesAndDirs.GetTempPath,name
      {}Cleanup targetDir
      CreateNewDirectory targetDir
      CreateBatFiles targetDir
      CreateNewDirectory targetDir,'\Logs'
      CreateNewDirectory targetDir,'\Errors'
      CreateNewDirectory targetDir,'\INIs'
-     (rc more)←'TestService\INIs\TestService.ini'#.FilesAndDirs.CopyTo targetDir,'\INIs\'
+     (rc more)←'TestService\INIs\TestService.ini'##.FilesAndDirs.CopyTo targetDir,'\INIs\'
      Assert 0=rc
-     (rc more)←'..\_Source\ServiceState.dyalog'#.FilesAndDirs.CopyTo targetDir,'\'
+     (rc more)←'..\..\_Source\ServiceState.dyalog'##.FilesAndDirs.CopyTo targetDir,'\'
      Assert 0=rc
-     (rc more)←'TestService\TestService.dws'#.FilesAndDirs.CopyTo targetDir,'\'
+     (rc more)←'TestService\TestService.dws'##.FilesAndDirs.CopyTo targetDir,'\'
      Assert 0=rc
      rc←0 ⋄ more←'Done'
  :Else
