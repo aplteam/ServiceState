@@ -1,2 +1,2 @@
  r←TodaysLogFileName
- r←'\Logs\',(8↑(##.APLTreeUtils.FormatDateTime ⎕TS)~'-'),'.log'
+ r←'\Logs\',(8↑(APLTreeUtils2.FormatDateTime ⎕TS)~'-'),'.log'

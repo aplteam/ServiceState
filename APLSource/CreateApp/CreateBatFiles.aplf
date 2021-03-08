@@ -4,8 +4,8 @@
  wsid←'"',path,'\TestService.DWS"'
  cmd←aplexe,' ',wsid,' APL_ServiceInstall=TestService'
  cmd,←' DYALOG_NOPOPUPS=1'
- ##.APLTreeUtils.WriteUtf8File(path,'\install.bat')cmd
+ (⊂cmd)⎕NPUT(path,'\install.bat')1
  cmd←aplexe,' ',wsid,' APL_ServiceUnInstall=TestService'
  cmd,←' DYALOG_NOPOPUPS=1'
- ##.APLTreeUtils.WriteUtf8File(path,'\uninstall.bat')cmd
+ (⊂cmd)⎕NPUT(path,'\uninstall.bat')1
 ⍝Done

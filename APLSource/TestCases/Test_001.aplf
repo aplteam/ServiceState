@@ -1,4 +1,4 @@
- R←Test_001(stopFlag batchFlag);⎕TRAP;ps
+ R←Test_001(stopFlag batchFlag);⎕TRAP;ps;qdmx
 ⍝ Test the Init function
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
@@ -22,11 +22,12 @@
 
  ps←##.ServiceState.CreateParmSpace
  ps.notAllowed←1
- :Trap 0
+ :Trap 11
      ##.ServiceState.Init ps
      →T.FailsIf 1
  :Else
-     →T.FailsIf'Invalid parameter'≢0⊃⎕DM
+     qdmx←⎕DMX
+     →T.FailsIf'Invalid parameter'≢qdmx.EM
  :EndTrap
 
  R←T._OK

@@ -1,0 +1,57 @@
+2020-09-24 12:33:28 *** Log File opened
+2020-09-24 12:33:28 (0) TestService started...
+2020-09-24 12:33:28 (0) INI file parameters:
+2020-09-24 12:33:28 (0)  CONFIG  applongname   Test Service 
+2020-09-24 12:33:28 (0)  CONFIG  appshortname   TestService 
+2020-09-24 12:33:28 (0)  CONFIG  catchErrors              0 
+2020-09-24 12:33:28 (0)  CONFIG  debug                    0 
+2020-09-24 12:33:28 (0)  CONFIG  letsCrash                0 
+2020-09-24 12:33:28 (0)  CONFIG  logFolder             LOGs 
+2020-09-24 12:33:28 (0)  CONFIG  logToSession             0 
+2020-09-24 12:33:28 (0)  CONFIG  logging                  1 
+2020-09-24 12:33:28 (0)  CONFIG  quit                     0 
+2020-09-24 12:33:28 (0)  CONFIG  stopMainLoop             0 
+2020-09-24 12:33:28 (0)  RIDE    Active                   1 
+2020-09-24 12:33:28 (0)  RIDE    Port                  4511 
+2020-09-24 12:33:28 (0) Command-line parameters:
+2020-09-24 12:33:28 (0)  C:\Program Files\Dyalog\Dyalog APL-64 18.0 Unicode\Dyalog.exe
+2020-09-24 12:33:28 (0)  MAXWS=64MB                                                   
+2020-09-24 12:33:28 (0)  -exec_setup=1                                                
+2020-09-24 12:33:28 (0) TestService server started
+2020-09-24 19:30:12 *** Log File opened
+2020-09-24 19:30:12 (0) TestService started...
+2020-09-24 19:30:19 (0) INI file parameters:
+2020-09-24 19:30:19 (0)  CONFIG  applongname   Test Service 
+2020-09-24 19:30:19 (0)  CONFIG  appshortname   TestService 
+2020-09-24 19:30:19 (0)  CONFIG  catchErrors              0 
+2020-09-24 19:30:19 (0)  CONFIG  debug                    0 
+2020-09-24 19:30:19 (0)  CONFIG  letsCrash                0 
+2020-09-24 19:30:19 (0)  CONFIG  logFolder             LOGs 
+2020-09-24 19:30:19 (0)  CONFIG  logToSession             0 
+2020-09-24 19:30:19 (0)  CONFIG  logging                  1 
+2020-09-24 19:30:19 (0)  CONFIG  quit                     0 
+2020-09-24 19:30:19 (0)  CONFIG  stopMainLoop             0 
+2020-09-24 19:30:19 (0)  RIDE    Active                   1 
+2020-09-24 19:30:19 (0)  RIDE    Port                  4511 
+2020-09-24 19:30:19 (0) Command-line parameters:
+2020-09-24 19:30:19 (0)  C:\Program Files\Dyalog\Dyalog APL-64 18.0 Unicode\Dyalog.exe
+2020-09-24 19:30:19 (0)  MAXWS=64MB                                                   
+2020-09-24 19:30:19 (0)  -exec_setup=1                                                
+2020-09-24 19:30:21 (0) TestService server started
+2020-09-24 19:31:20 (0) INI file parameters:
+2020-09-24 19:31:20 (0)  CONFIG  applongname   Test Service 
+2020-09-24 19:31:20 (0)  CONFIG  appshortname   TestService 
+2020-09-24 19:31:20 (0)  CONFIG  catchErrors              0 
+2020-09-24 19:31:20 (0)  CONFIG  debug                    0 
+2020-09-24 19:31:20 (0)  CONFIG  letsCrash                0 
+2020-09-24 19:31:20 (0)  CONFIG  logFolder             LOGs 
+2020-09-24 19:31:20 (0)  CONFIG  logToSession             0 
+2020-09-24 19:31:20 (0)  CONFIG  logging                  1 
+2020-09-24 19:31:20 (0)  CONFIG  quit                     0 
+2020-09-24 19:31:20 (0)  CONFIG  stopMainLoop             0 
+2020-09-24 19:31:20 (0)  RIDE    Active                   1 
+2020-09-24 19:31:20 (0)  RIDE    Port                  4511 
+2020-09-24 19:31:20 (0) Command-line parameters:
+2020-09-24 19:31:20 (0)  C:\Program Files\Dyalog\Dyalog APL-64 18.0 Unicode\Dyalog.exe
+2020-09-24 19:31:20 (0)  MAXWS=64MB                                                   
+2020-09-24 19:31:20 (0)  -exec_setup=1                                                

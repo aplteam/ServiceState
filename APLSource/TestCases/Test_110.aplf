@@ -1,0 +1,12 @@
+ R←Test_110(stopFlag batchFlag);⎕TRAP;list;res
+⍝ Check all "Constants" (nilad functions starting their names with "SERVICE")
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ list←{⍵⌿⍨∨/'SERVICE_'⍷⍵}##.ServiceState.⎕NL 3
+ res←##.ServiceState.⍎¨↓list
+ →T.PassesIf 0<≢res
+ →T.PassesIf res{(∧/⍺∊⍵)∧(∧/⍵∊⍺)}∪res
+
+ R←T._OK

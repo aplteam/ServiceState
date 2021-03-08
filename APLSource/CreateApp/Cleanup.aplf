@@ -1,16 +1,19 @@
- r←Cleanup name;rc;flag;counter
+ r←{max}Cleanup name;rc;flag;counter;F
 ⍝ Delete the folders "name" recursively.
  r←⍬
- :If ##.FilesAndDirs.Exists name
+ max←{0<⎕NC ⍵:⍎⍵ ⋄ 30}'max'
+ F←##.TestCases.FilesAndDirs
+ :If F.Exists name
      flag←0
      counter←0
      :Repeat
-         rc←##.FilesAndDirs.RmDir name
+         rc←F.RmDir name
          :If 0=0⊃rc
              flag←1
          :Else
              ⎕DL 1
              ⎕←'Waiting...'
          :EndIf
-     :Until flag∨10>counter←counter+1
+     :Until flag∨max>counter←counter+1
+     ('Could not delete directory ',name)⎕SIGNAL 11/⍨~flag
  :EndIf

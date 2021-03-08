@@ -1,14 +1,12 @@
-﻿:Namespace ServiceState
+:Namespace ServiceState
 ⍝ This namespace provides an interface between an APL application designed
 ⍝ to run as a service and the Windows Service Control Manager (SCM). The
 ⍝ SCM is sending messages which are caught by the `ServiceState.OnServiceHandler`
-⍝ callback which is in turn expected to respond to those messages reasonably.
-⍝
+⍝ callback which is in turn expected to respond to those messages reasonably.\\
 ⍝ `ServiceState` offers all sorts of functions but normally the user will call just:
 ⍝ * `ServiceState.CreateParmSpace`
 ⍝ * `ServiceState.Ini`
-⍝ * `ServiceState.CheckServiceMessages`
-⍝
+⍝ * `ServiceState.CheckServiceMessages`\\
 ⍝ Run `##.ServiceState.Init` to get started. You can either specify an empty
 ⍝ right argument (if you are happy with the defaults) or a parameter
 ⍝ space. It is suggested to create a parameter space by calling:
@@ -20,21 +18,18 @@
 ⍝ ps.∆List
 ⍝ ~~~
 ⍝ for a list of all defaults. Finally pass the parameter space as right argument
-⍝ to `Init`.
-⍝
+⍝ to `Init`.\\
 ⍝ Note that `Init` establishes `##.ServiceState.OnServiceHandler` as the
 ⍝ callback function for state changes requested by SCM. This callback will
-⍝ set internally a variable which indicates what state is requested by the SCM.
-⍝
-⍝ The application is supposed to check whether a state change is required and if that
-⍝ is the case to take an appropriate action and finally signal back to the SCM that 
-⍝ the state has been changed as requested.
-⍝
+⍝ set internally a variable which indicates what state is requested by the SCM.\\
+⍝ The application is supposed to check whether a state change is required, and if that
+⍝ is the case to take appropriate actions and finally signal back to the SCM that 
+⍝ the state has been changed as requested.\\
 ⍝ All this can be achieved by calling the operator `CheckServiceMessages`, typically
 ⍝ in the main loop of the application. The operator takes a log function as operand
-⍝ and a flag that indicates whether the application is running as a service (you can call
-⍝ `##.ServiceState.IsRunningAsService` for this), no further actions are required.\\
-⍝ All this in a single function (not recommended but as an example):
+⍝ and a flag that indicates whether the application is running as a service or not.
+⍝ You may call `##.ServiceState.IsRunningAsService` in order to find out.\\
+⍝ All this in a single function (not recommended, just serving as an example):
 ⍝ ~~~
 ⍝ ∇ {r}←Run dummy;S
 ⍝   r←⍬
@@ -43,7 +38,7 @@
 ⍝   S←#.ServiceState
 ⍝   S.Init parms
 ⍝   :Repeat
-⍝       ⎕DL 1
+⍝       ⎕DL .2
 ⍝       :If (Log S.CheckServiceMessages)S.IsRunningAsService
 ⍝           :Leave
 ⍝       :EndIf
@@ -55,35 +50,37 @@
 ⍝ as right argument and writes them to a log file.\\
 ⍝ Notes:
 ⍝ * Any request to "Pause" (as well as "Continue") will be handled within `CheckServiceMessages`.
-⍝ * `CheckServiceMessages` return a 1 in case a "Stop" is requested and a 0 otherwise.
-⍝
+⍝ * `CheckServiceMessages` returns a 1 in case a "Stop" is requested, and a 0 otherwise.\\
 ⍝ Note that with version 1.6 the `ride` parameter was removed from `ServiceState`. The
 ⍝ reason for this was two-fold:
 ⍝ * When a service does not start it's too late - you have to ride into the service
 ⍝   asap.
 ⍝ * When you want to debug a problem within the application then the application should
-⍝   give you a ride, not `ServiceState`.
-⍝
-⍝ That's why this feature was removed from `ServcieState`.
-⍝
-⍝ Needs Dyalog 14.0 or better.\\
+⍝   give you a ride, not `ServiceState`.\\
+⍝ That's why this feature was removed from `ServcieState`.\\
+⍝ Homepage: <https://github.com/aplteam/ServiceState>\\
 ⍝ Kai Jaeger ⋄ APL Team Ltd\\
 
-    ⎕IO←⎕ML←1
+    ⎕IO←1 ⋄ ⎕ML←1
 
     ∇ r←Version
       :Access Public Shared
-      r←({⍵↑⍨-¯1+'.'⍳⍨⌽⍵}⍕⎕THIS)'1.7.0.2' '2018-02-19'
+      r←'ServiceState' '3.0.0+10' '2021-03-02'
     ∇
 
     ∇ History
     :Access Public Shared
-      ⍝ * 1.7.0:
-      ⍝   * Converted from the APL wiki to GitHub
+      ⍝ * 3.0.0:
+      ⍝   * BREAKING CHANGES: Requires Dyalog 18.0
+      ⍝   * Fully Tatin compatible (0.30.0 and later)
+      ⍝   * Test polished
+      ⍝   * "Make" polished
+      ⍝   * Superfluous constants removed.
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/ServiceState/releases>
     ∇
-
+      
+⍝ -- The SCM states (see https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-controlservice for details)      
     ∇ r←SERVICE_CONTINUE_PENDING
       r←5
     ∇
@@ -150,6 +147,9 @@
     ∇ r←SERVICE_STOP_PENDING
       r←3
     ∇
+⍝ --- End SCM states
+
+⍝ --- Internal states
     ∇ r←continue
       r←3
     ∇
@@ -165,6 +165,7 @@
     ∇ r←stop
       r←1
     ∇
+⍝ --- End internal states
 
     ∇ {r}←Init ps;ps2;allowed
     ⍝ Initialize `ServiceState`.\\
@@ -180,7 +181,7 @@
       currentState←SERVICE_RUNNING
       requestedState←⍬
       '#'⎕WS'Event'eventQuitDQ 1    ⍝ To quit any ⎕DQ - we want be able to quit
-      :If ~0∊⍴logFunction
+      :If 0≠≢logFunction
           :If ⍬≡logFunctionParent
               _logFunction←⍎logFunction
           :Else
@@ -228,7 +229,7 @@
     ⍝ required afterwards.
       r←⍬
       :While 0=ShallServiceContinue
-          ⎕DL 1
+          ⎕DL 0.2
       :EndWhile
       currentState←SERVICE_RUNNING
     ∇
@@ -243,7 +244,7 @@
           :If requestedState≡currentState
               :Return
           :EndIf
-          ⎕DL 1
+          ⎕DL 0.2
       :EndWhile
       r←1
     ∇
@@ -303,7 +304,7 @@
               {}_logFunction'',action,' was ignored'
           :EndIf
       :EndSelect
-      :If 1<⍴⎕TNUMS                              ⍝ If the main thread is the only one left it's an endless loop!
+      :If 1<≢⎕TNUMS                              ⍝ If the main thread is the only one left it's an endless loop!
       :AndIf currentState≢requestedState
           {}WaitForStateChange timeout           ⍝ Wait for the application to confirm the requested change.
           {}_logFunction'Application confirmed state change'
@@ -314,7 +315,7 @@
           {}_logFunction'"eventQuitDQ" was sent'
       :EndIf
       2 ⎕NQ'.' 'SetServiceState'state2           ⍝ Confirm to SCM.
-      stateAsText←currentState{,1↑⍵⌿⍨⍺=⍎¨↓⍵}'SERVICE'{⍵⌿⍨((⍴,⍺)↑[2]⍵)∧.=⍺}⎕NL 3
+      stateAsText←' '~¨⍨currentState{,1↑⍵⌿⍨⍺=⍎¨↓⍵}'SERVICE'{⍵⌿⍨((≢⍺)↑[2]⍵)∧.=⍺}⎕NL 3
       {}_logFunction'Message "SetServiceState" with value "',stateAsText,'" was sent'
       r←0
     ∇
@@ -360,7 +361,7 @@
     ∇
 
     ∇ r←IsRunningAsService
-      r←~0∊⍴2 ⎕NQ'.' 'GetEnvironment' 'RunAsService'
+      r←0≠≢2 ⎕NQ'.' 'GetEnvironment' 'RunAsService'
     ∇
 
 

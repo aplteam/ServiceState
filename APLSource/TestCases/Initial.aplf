@@ -1,7 +1,8 @@
  r←Initial;rc;more;cmd
- {}⎕SE.SALT.Save'##.ServiceState ',##.FilesAndDirs.PWD,'\TestService\ServiceState -noprompt'
- :If 0=##.WinSys.IsRunningAsAdmin
+ (⊂⎕SRC ##.ServiceState)⎕NPUT(FilesAndDirs.PWD,'\TestService\ServiceState.apln')1
+ :If 0=APLTreeUtils2.IsRunningAsAdmin
      ⎕←'*** Sorry, you need admin rights in order to run the test suite.'
+     0 0⍴⍞,0/⎕←'Press <enter> to continue'
      r←0
  :Else
      r←1
@@ -11,16 +12,16 @@
      Assert 0=rc
 
      cmd←'SC query ',∆TestAppName
-     rc←##.Execute.Process cmd
-     →T.FailsIf 0≠0⊃rc
+     rc←Execute.Process cmd
+     →T.FailsIf 0≠1⊃rc
 
-     :If 1060≠2⊃rc       ⍝ If the service does exist...
+     :If 1060≠3⊃rc       ⍝ If the service does exist...
          cmd←'cmd /c ',∆HOME,'\uninstall.bat'  ⍝ ... we uninstall it
-         rc←##.Execute.Process cmd
-         →T.FailsIf(0≠0⊃rc)∨9≠2⊃rc
+         rc←Execute.Process cmd
+         →T.FailsIf(0≠1⊃rc)∨9≠3⊃rc
      :EndIf
 
      cmd←'cmd /c ',∆HOME,'\install.bat'
-     rc←##.Execute.Process cmd
-     Assert(0=0⊃rc)∨(9=2⊃rc)
+     rc←Execute.Process cmd
+     Assert(0=1⊃rc)∨(9=3⊃rc)
  :EndIf

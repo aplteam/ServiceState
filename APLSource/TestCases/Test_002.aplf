@@ -6,6 +6,6 @@
 
  ##.ServiceState.Init ⍬
  list←##.ServiceState.MethodList
- →T.FailsIf~11 1∧.=+⌿(##.ServiceState.⎕NC⊃list)∘.=3 4
+ →T.FailsIf~11 1∧.=+⌿(##.ServiceState.⎕NC↑list)∘.=3 4
 
  R←T._OK

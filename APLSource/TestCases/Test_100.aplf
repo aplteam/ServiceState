@@ -5,32 +5,32 @@
  R←T._Failed
 
  logfile←∆HOME,TodaysLogFileName
- ##.FilesAndDirs.DeleteFile logfile
+ FilesAndDirs.DeleteFile logfile
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'start'
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'start'
  ∆Delay 2
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
- →T.FailsIf~∨/'RUNNING'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'query'
+ →T.FailsIf~∨/'RUNNING'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}↑msg
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'pause'
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'pause'
  ∆Delay 2
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
- →T.FailsIf~∨/'PAUSED'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'query'
+ →T.FailsIf~∨/'PAUSED'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}↑msg
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'continue'
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'continue'
  ∆Delay 2
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
- →T.FailsIf~∨/'RUNNING'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'query'
+ →T.FailsIf~∨/'RUNNING'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}↑msg
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'stop'
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'stop'
  ∆Delay 2
 
- →T.FailsIf 0∊⍴msg←∆Execute_SC_Cmd'query'
- →T.FailsIf~∨/'STOPPED'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}⊃msg
+ →T.FailsIf 0=≢msg←∆Execute_SC_Cmd'query'
+ →T.FailsIf~∨/'STOPPED'⍷,{⍵⌿⍨∨/'STATE'⍷⎕FMT ⍵}↑msg
 
- →T.FailsIf 0=##.FilesAndDirs.Exists logfile
+ →T.FailsIf 0=FilesAndDirs.Exists logfile
 
  R←T._OK

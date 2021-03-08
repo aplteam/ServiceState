@@ -1,0 +1,23 @@
+2021-03-02 19:37:00 *** Log File opened
+2021-03-02 19:37:00 (0) TestService started...
+2021-03-02 19:37:03 (0) Current dir   : C:\T\Projects\APLTree\ServiceState\TestService
+2021-03-02 19:37:04 (0) Code coverage : C:\T\Projects\APLTree\ServiceState\TestService\CodeCoverage
+2021-03-02 19:37:10 (0) INI file parameters:
+2021-03-02 19:37:10 (0)  CONFIG  applongname   Test Service 
+2021-03-02 19:37:10 (0)  CONFIG  appshortname   TestService 
+2021-03-02 19:37:10 (0)  CONFIG  catchErrors              0 
+2021-03-02 19:37:10 (0)  CONFIG  debug                    0 
+2021-03-02 19:37:10 (0)  CONFIG  letsCrash                0 
+2021-03-02 19:37:10 (0)  CONFIG  logFolder             LOGs 
+2021-03-02 19:37:10 (0)  CONFIG  logToSession             0 
+2021-03-02 19:37:10 (0)  CONFIG  logging                  1 
+2021-03-02 19:37:10 (0)  CONFIG  quit                     0 
+2021-03-02 19:37:10 (0)  CONFIG  stopMainLoop             0 
+2021-03-02 19:37:10 (0)  RIDE    Active                   0 
+2021-03-02 19:37:10 (0)  RIDE    Port                  4511 
+2021-03-02 19:37:10 (0) Command-line parameters:
+2021-03-02 19:37:10 (0)  C:\Program Files\Dyalog\Dyalog APL-64 18.0 Unicode\Dyalog.exe
+2021-03-02 19:37:10 (0)  MAXWS=64MB                                                   
+2021-03-02 19:37:10 (0)  -exec_setup=1                                                
+2021-03-02 19:37:10 (0) TestService server started
+2021-03-02 19:38:04 (0) Test Service shutting down 

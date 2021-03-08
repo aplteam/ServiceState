@@ -1,9 +1,9 @@
- Cleanup;rc
+ Cleanup;rc;htmlFilename
  :If 0<⎕NC'∆TestAppName'
-     rc←##.Execute.Process'cmd /c ',∆HOME,'\uninstall.bat'
-     Assert(0=0⊃rc)∨(9=2⊃rc)
-     ∆Delay 3
-     {}##.CreateApp.Cleanup ∆HOME
+     rc←Execute.Process'cmd /c ',∆HOME,'\uninstall.bat'
+     Assert(0=1⊃rc)∨(9=3⊃rc)
+     ∆Delay 2
+     {}##.CreateApp.Cleanup ∆HOME   ⍝ If this fails try →⎕lc
      ⎕WSID←∆WSID
-     ⎕EX¨'∆TestAppName' '∆WSID' '∆HOME'
+     ⎕EX¨'∆TestAppName' '∆WSID' '∆HOME' '∆DCF_FILENAME'
  :EndIf
