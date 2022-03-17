@@ -265,6 +265,8 @@
       :CaseList CONTROL.STOP CONTROL.SHUTDOWN
           requestedState←STATE.STOPPED
           state2[⎕IO+3 4 5 6]←0
+      :Case CONTROL.INTERROGATE
+          requestedState←currentState
       :Case CONTROL.PAUSE
           requestedState←STATE.PAUSED
       :Case CONTROL.CONTINUE
