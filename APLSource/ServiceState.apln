@@ -323,7 +323,7 @@
     ⍝ Otherwise it ⎕OFFs (in case its a runtime EXE or runtime DLL) or executes `→`.\\
     ⍝ If you wish to pass a return code specify this as ⍺; that's then passed as right "argument" to `⎕OFF`.
           testFlag←⍵:⍬
-          IsDevelopment:→
+          IsDevelopment>IsRunningAsService:→
           0=⎕NC'⍺':⎕OFF
           ⎕OFF ⍺
       }
