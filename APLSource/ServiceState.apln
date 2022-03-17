@@ -281,8 +281,11 @@
       :EndSelect
       :If 1<≢⎕TNUMS                              ⍝ If the main thread is the only one left it's an endless loop!
       :AndIf currentState≢requestedState
-          {}WaitForStateChange timeout           ⍝ Wait for the application to confirm the requested change.
-          {}_logFunction'Application confirmed state change'
+          :If WaitForStateChange timeout         ⍝ Wait for the application to confirm the requested change.
+              {}_logFunction'Application state change timed out'
+          :Else
+              {}_logFunction'Application confirmed state change'
+          :EndIf
       :EndIf
       state2[⎕IO+1]←currentState                 ⍝ Assign accordingly.
       :If action∊CONTROL.STOP,CONTROL.SHUTDOWN
