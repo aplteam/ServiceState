@@ -260,25 +260,21 @@
     ⍝ to ensure that any running `⎕DQ` (or `Wait`) is quit.\\
     ⍝ Note that this function is independent from both `⎕IO` and `⎕ML` and must stay so.
       state2←state
+      {}_logFunction'SCM action: ',CONTROL.ToString action
       :Select action
       :CaseList CONTROL.STOP CONTROL.SHUTDOWN
           requestedState←STATE.STOPPED
           state2[⎕IO+3 4 5 6]←0
-          {}_logFunction'"stop" is requested'
       :Case CONTROL.PAUSE
           requestedState←STATE.PAUSED
-          {}_logFunction'"pause" is requested'
       :Case CONTROL.CONTINUE
           requestedState←STATE.RUNNING
-          {}_logFunction'"continue" is requested'
       :Else
           :If state[⎕IO+1]=STATE.START_PENDING
               currentState←requestedState←STATE.RUNNING
-              {}_logFunction'"start" is requested'
-          :Else
-              {}_logFunction'',action,' was ignored'
           :EndIf
       :EndSelect
+      {}_logFunction'current → requested state: ',(STATE.ToString currentState),' → ',(STATE.ToString requestedState)
       :If 1<≢⎕TNUMS                              ⍝ If the main thread is the only one left it's an endless loop!
       :AndIf currentState≢requestedState
           :If WaitForStateChange timeout         ⍝ Wait for the application to confirm the requested change.
