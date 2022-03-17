@@ -215,11 +215,11 @@
     ⍝ This fns is called by the callback processing the messages
     ⍝ send from the Windows Service Control Manager (SCM).
       r←0
-      :While 0≤timeout←timeout-1
+      :While 0≤timeout
           :If requestedState≡currentState
               :Return
           :EndIf
-          ⎕DL 0.2
+          timeout-←⎕DL 0.2
       :EndWhile
       r←1
     ∇
@@ -298,7 +298,7 @@
     ⍝ Creates a namespace populated with variables holding the default settings plus a function `∆List`.
       r←#.⎕NS''
       r.(⎕IO ⎕ML)←1
-      r.timeout←5
+      r.timeout←5           ⍝ timeout in seconds
       r.logFunction←''
       r.logFunctionParent←⍬
       r.eventQuitDQ←9999
