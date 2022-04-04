@@ -23,7 +23,7 @@
 ⍝ callback function for state changes requested by SCM. This callback will
 ⍝ set internally a variable which indicates what state is requested by the SCM.\\
 ⍝ The application is supposed to check whether a state change is required, and if that
-⍝ is the case to take appropriate actions and finally signal back to the SCM that 
+⍝ is the case to take appropriate actions and finally signal back to the SCM that
 ⍝ the state has been changed as requested.\\
 ⍝ All this can be achieved by calling the operator `CheckServiceMessages`, typically
 ⍝ in the main loop of the application. The operator takes a log function as operand
@@ -65,89 +65,64 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←'ServiceState' '3.0.0+10' '2021-03-02'
+      r←'ServiceState' '3.0.0+12' '2021-03-02'
     ∇
 
     ∇ History
-    :Access Public Shared
-      ⍝ * 3.0.0:
-      ⍝   * BREAKING CHANGES: Requires Dyalog 18.0
-      ⍝   * Fully Tatin compatible (0.30.0 and later)
-      ⍝   * Test polished
-      ⍝   * "Make" polished
-      ⍝   * Superfluous constants removed.
+      :Access Public Shared
+      ⍝ * 4.0.0:
+      ⍝   * BREAKING CHANGEs: 
+      ⍝     * Niladic functions replaced by two sub-classes ("CONTROL" and "STATE") with
+      ⍝       read-only fields for the different values.
+      ⍝     * ⎕OFFs now when running as a service
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/ServiceState/releases>
     ∇
-      
-⍝ -- The SCM states (see https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-controlservice for details)      
-    ∇ r←SERVICE_CONTINUE_PENDING
-      r←5
-    ∇
-    ∇ r←SERVICE_CONTROL_CONTINUE
-      r←3
-    ∇
-    ∇ r←SERVICE_CONTROL_DEVICEEVENT
-      r←11
-    ∇
-    ∇ r←SERVICE_CONTROL_HARDWAREPROFILECHANGE
-      r←12
-    ∇
-    ∇ r←SERVICE_CONTROL_INTERROGATE
-      r←4
-    ∇
-    ∇ r←SERVICE_CONTROL_NETBINDADD
-      r←7
-    ∇
-    ∇ r←SERVICE_CONTROL_NETBINDDISABLE
-      r←10
-    ∇
-    ∇ r←SERVICE_CONTROL_NETBINDENABLE
-      r←9
-    ∇
-    ∇ r←SERVICE_CONTROL_NETBINDREMOVE
-      r←8
-    ∇
-    ∇ r←SERVICE_CONTROL_PARAMCHANGE
-      r←6
-    ∇
-    ∇ r←SERVICE_CONTROL_PAUSE
-      r←2
-    ∇
-    ∇ r←SERVICE_CONTROL_POWEREVENT
-      r←13
-    ∇
-    ∇ r←SERVICE_CONTROL_PRESHUTDOWN
-      r←15
-    ∇
-    ∇ r←SERVICE_CONTROL_SESSIONCHANGE
-      r←14
-    ∇
-    ∇ r←SERVICE_CONTROL_SHUTDOWN
-      r←5
-    ∇
-    ∇ r←SERVICE_CONTROL_STOP
-      r←1
-    ∇
-    ∇ r←SERVICE_PAUSED
-      r←7
-    ∇
-    ∇ r←SERVICE_PAUSE_PENDING
-      r←6
-    ∇
-    ∇ r←SERVICE_RUNNING
-      r←4
-    ∇
-    ∇ r←SERVICE_START_PENDING
-      r←2
-    ∇
-    ∇ r←SERVICE_STOPPED
-      r←1
-    ∇
-    ∇ r←SERVICE_STOP_PENDING
-      r←3
-    ∇
-⍝ --- End SCM states
+
+⍝ -- The SCM states (see https://docs.microsoft.com/en-us/windows/win32/api/winsvc/nf-winsvc-controlservice for details)
+
+    :Class CONTROL
+        :Field Public Shared ReadOnly STOP                  ←1
+        :Field Public Shared ReadOnly PAUSE                 ←2
+        :Field Public Shared ReadOnly CONTINUE              ←3
+        :Field Public Shared ReadOnly INTERROGATE           ←4
+        :Field Public Shared ReadOnly SHUTDOWN              ←5
+        :Field Public Shared ReadOnly PARAMCHANGE           ←6
+        :Field Public Shared ReadOnly NETBINDADD            ←7
+        :Field Public Shared ReadOnly NETBINDREMOVE         ←8
+        :Field Public Shared ReadOnly NETBINDENABLE         ←9
+        :Field Public Shared ReadOnly NETBINDDISABLE        ←10
+        :Field Public Shared ReadOnly DEVICEEVENT           ←11
+        :Field Public Shared ReadOnly HARDWAREPROFILECHANGE ←12
+        :Field Public Shared ReadOnly POWEREVENT            ←13
+        :Field Public Shared ReadOnly SESSIONCHANGE         ←14
+        :Field Public Shared ReadOnly PRESHUTDOWN           ←15
+
+        :Field Private Shared ReadOnly ∆NAMES               ←⎕NL ¯2.2
+        :Field Private Shared ReadOnly ∆VALUES              ←⍎¨∆NAMES
+
+        ∇ r←ToString code
+          :Access Public Shared
+          r←(∆VALUES⍳code)⊃(∆NAMES,⊂'INVALID')
+        ∇
+    :EndClass
+
+    :Class STATE
+        :Field Public Shared ReadOnly STOPPED               ←1
+        :Field Public Shared ReadOnly START_PENDING         ←2
+        :Field Public Shared ReadOnly STOP_PENDING          ←3
+        :Field Public Shared ReadOnly RUNNING               ←4
+        :Field Public Shared ReadOnly CONTINUE_PENDING      ←5
+        :Field Public Shared ReadOnly PAUSE_PENDING         ←6
+        :Field Public Shared ReadOnly PAUSED                ←7
+        :Field Private Shared ReadOnly ∆NAMES               ←⎕NL ¯2.2
+        :Field Private Shared ReadOnly ∆VALUES              ←⍎¨∆NAMES
+
+        ∇ r←ToString code
+          :Access Public Shared
+          r←(∆VALUES⍳code)⊃(∆NAMES,⊂'INVALID')
+        ∇
+    :EndClass ⍝ --- End SCM states
 
 ⍝ --- Internal states
     ∇ r←continue
@@ -178,7 +153,7 @@
           ps2.{⍵{⍵{⍎⍺,'←⍵'}¨⍺.⍎¨⍵}⍵.⎕NL-2 9}ps  ⍝ Merge
       :EndIf
       ⎕THIS.{⍵{⍵{⍎⍺,'←⍵'}¨⍺.⍎¨⍵}⍵.⎕NL-2 9}ps2   ⍝ Set globals
-      currentState←SERVICE_RUNNING
+      currentState←STATE.RUNNING
       requestedState←⍬
       '#'⎕WS'Event'eventQuitDQ 1    ⍝ To quit any ⎕DQ - we want be able to quit
       :If 0≠≢logFunction
@@ -203,20 +178,19 @@
 
     ∇ r←ShallServicePause
     ⍝ Boolean: returns 1 if the state is supposed to become "paused".
-      r←SERVICE_PAUSED≡requestedState
+      r←requestedState≡STATE.PAUSED
     ∇
 
     ∇ r←ShallServiceContinue
     ⍝ Boolean: returns 1 if `States.requestedState` is no longer "paused".\\
     ⍝ That does not mean that it is "continue" or "running" because the
     ⍝ user may have chosen to stop the paused service.
-      r←SERVICE_PAUSED≢requestedState
+      r←requestedState≢STATE.PAUSED
     ∇
 
     ∇ r←ShallServiceQuit
     ⍝ Boolean: returns 1 if the service is supposed to stop.
-      r←requestedState≡SERVICE_CONTROL_STOP
-      r←r∨SERVICE_CONTROL_SHUTDOWN≡requestedState
+      r←(⊂requestedState)∊CONTROL.STOP CONTROL.SHUTDOWN
     ∇
 
     ∇ {r}←WaitForContinue dummy
@@ -224,14 +198,14 @@
     ⍝ Consider calling this in case ShallServicePause has returned a 1 and you don't
     ⍝ have to do any particular gymnastics but just want to wait for a state change.\\
     ⍝ It just waits until the status changes, although not necessarily to "continue".\\
-    ⍝ However, when the state changes then `currentState` is set to SERVICE_RUNNING
+    ⍝ However, when the state changes then `currentState` is set to STATE.RUNNING
     ⍝ no matter which state was requested. Therefore another check for "Stop" is
     ⍝ required afterwards.
       r←⍬
       :While 0=ShallServiceContinue
           ⎕DL 0.2
       :EndWhile
-      currentState←SERVICE_RUNNING
+      currentState←STATE.RUNNING
     ∇
 
     ∇ r←WaitForStateChange timeout
@@ -240,11 +214,11 @@
     ⍝ This fns is called by the callback processing the messages
     ⍝ send from the Windows Service Control Manager (SCM).
       r←0
-      :While 0≤timeout←timeout-1
+      :While 0≤timeout
           :If requestedState≡currentState
               :Return
           :EndIf
-          ⎕DL 0.2
+          timeout-←⎕DL 0.2
       :EndWhile
       r←1
     ∇
@@ -271,52 +245,52 @@
       :EndIf
     ∇
 
-    ∇ {r}←OnServiceHandler(obj event action state);state2;stateAsText
+    ∇ {r}←OnServiceHandler(obj event action state);state2
     ⍝ Callback designed to handle notifications from Windows Service Control Manager (SCM).\\
     ⍝ This function is established as a callback by `Init`.\\
     ⍝ Note that the interpreter has already responded automatically to
     ⍝ the SCM with the appropriate "_PENDING" message prior to this
     ⍝ callback being reached.\\
     ⍝ This callback waits until the application has reacted by setting
-    ⍝ `ServiceStates.currentState` to `ServiceStates.requiredState` or it times out.\\
+    ⍝ `ServiceStates.currentState` to `ServiceStates.requestedState` or it times out.\\
     ⍝ Returns always 0.\\
     ⍝ In case of a "STOP" or "SHUTDOWN" this function sends a `eventQuitDQ`
     ⍝ event to `#` after the requested state change was confirmed by the application
     ⍝ to ensure that any running `⎕DQ` (or `Wait`) is quit.\\
     ⍝ Note that this function is independent from both `⎕IO` and `⎕ML` and must stay so.
       state2←state
+      {}_logFunction'SCM action: ',CONTROL.ToString action
       :Select action
-      :CaseList SERVICE_CONTROL_STOP SERVICE_CONTROL_SHUTDOWN
-          requestedState←SERVICE_STOPPED
+      :CaseList CONTROL.STOP CONTROL.SHUTDOWN
+          requestedState←STATE.STOPPED
           state2[⎕IO+3 4 5 6]←0
-          {}_logFunction'"stop" is requested'
-      :Case SERVICE_CONTROL_PAUSE
-          requestedState←SERVICE_PAUSED
-          {}_logFunction'"pause" is requested'
-      :Case SERVICE_CONTROL_CONTINUE
-          requestedState←SERVICE_RUNNING
-          {}_logFunction'"continue" is requested'
+      :Case CONTROL.INTERROGATE
+          requestedState←currentState
+      :Case CONTROL.PAUSE
+          requestedState←STATE.PAUSED
+      :Case CONTROL.CONTINUE
+          requestedState←STATE.RUNNING
       :Else
-          :If state[⎕IO+1]=SERVICE_START_PENDING
-              currentState←requestedState←SERVICE_RUNNING
-              {}_logFunction'"start" is requested'
-          :Else
-              {}_logFunction'',action,' was ignored'
+          :If state[⎕IO+1]=STATE.START_PENDING
+              currentState←requestedState←STATE.RUNNING
           :EndIf
       :EndSelect
+      {}_logFunction'current → requested state: ',(STATE.ToString currentState),' → ',(STATE.ToString requestedState)
       :If 1<≢⎕TNUMS                              ⍝ If the main thread is the only one left it's an endless loop!
       :AndIf currentState≢requestedState
-          {}WaitForStateChange timeout           ⍝ Wait for the application to confirm the requested change.
-          {}_logFunction'Application confirmed state change'
+          :If WaitForStateChange timeout         ⍝ Wait for the application to confirm the requested change.
+              {}_logFunction'Application state change timed out'
+          :Else
+              {}_logFunction'Application confirmed state change'
+          :EndIf
       :EndIf
       state2[⎕IO+1]←currentState                 ⍝ Assign accordingly.
-      :If action∊SERVICE_CONTROL_STOP,SERVICE_CONTROL_SHUTDOWN
+      :If action∊CONTROL.STOP,CONTROL.SHUTDOWN
           ⎕NQ'#'eventQuitDQ                      ⍝ That should quit any DQ waiting
           {}_logFunction'"eventQuitDQ" was sent'
       :EndIf
       2 ⎕NQ'.' 'SetServiceState'state2           ⍝ Confirm to SCM.
-      stateAsText←' '~¨⍨currentState{,1↑⍵⌿⍨⍺=⍎¨↓⍵}'SERVICE'{⍵⌿⍨((≢⍺)↑[2]⍵)∧.=⍺}⎕NL 3
-      {}_logFunction'Message "SetServiceState" with value "',stateAsText,'" was sent'
+      {}_logFunction'Message "SetServiceState" with value "',(STATE.ToString currentState),'" was sent'
       r←0
     ∇
 
@@ -324,7 +298,7 @@
     ⍝ Creates a namespace populated with variables holding the default settings plus a function `∆List`.
       r←#.⎕NS''
       r.(⎕IO ⎕ML)←1
-      r.timeout←5
+      r.timeout←5           ⍝ timeout in seconds
       r.logFunction←''
       r.logFunctionParent←⍬
       r.eventQuitDQ←9999
@@ -332,7 +306,7 @@
     ∇
 
     ∇ r←MethodList
-
+     
       r←'Init' 'CreateParmSpace' 'CheckServiceMessages' 'ConfirmStateChange' 'ShallServiceContinue' 'ShallServicePause'
       r,←'ShallServiceQuit' 'WaitForContinue' 'WaitForStateChange' 'IsRunningAsService' 'IsDevelopment' 'Off'
     ∇
@@ -348,7 +322,7 @@
     ⍝ Otherwise it ⎕OFFs (in case its a runtime EXE or runtime DLL) or executes `→`.\\
     ⍝ If you wish to pass a return code specify this as ⍺; that's then passed as right "argument" to `⎕OFF`.
           testFlag←⍵:⍬
-          IsDevelopment:→
+          IsDevelopment>IsRunningAsService:→
           0=⎕NC'⍺':⎕OFF
           ⎕OFF ⍺
       }

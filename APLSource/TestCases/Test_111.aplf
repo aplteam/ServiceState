@@ -1,11 +1,11 @@
- R←Test_110(stopFlag batchFlag);⎕TRAP;list;res
-⍝ Check all constants of the sub-class "CONTROL"
+ R←Test_111(stopFlag batchFlag);⎕TRAP;list;res
+⍝ Check all constants of the sub-class "STATE"
 ⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
  R←T._Failed
 
- list←##.ServiceState.CONTROL.⎕NL -2
- res←##.ServiceState.CONTROL.{⍎⍵}¨list
+ list←##.ServiceState.STATE.⎕NL-2
+ res←##.ServiceState.STATE.{⍎⍵}¨list
  →T.PassesIf 0<≢res
  →T.PassesIf res{(∧/⍺∊⍵)∧(∧/⍵∊⍺)}∪res
 

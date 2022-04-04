@@ -1,0 +1,2 @@
+Init
+⎕wsid←CiderConfig.HOME,'/dummy.dws'

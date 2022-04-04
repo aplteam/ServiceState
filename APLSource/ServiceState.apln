@@ -65,17 +65,16 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←'ServiceState' '3.0.0+10' '2021-03-02'
+      r←'ServiceState' '3.0.0+12' '2021-03-02'
     ∇
 
     ∇ History
       :Access Public Shared
-      ⍝ * 3.0.0:
-      ⍝   * BREAKING CHANGES: Requires Dyalog 18.0
-      ⍝   * Fully Tatin compatible (0.30.0 and later)
-      ⍝   * Test polished
-      ⍝   * "Make" polished
-      ⍝   * Superfluous constants removed.
+      ⍝ * 4.0.0:
+      ⍝   * BREAKING CHANGEs: 
+      ⍝     * Niladic functions replaced by two sub-classes ("CONTROL" and "STATE") with
+      ⍝       read-only fields for the different values.
+      ⍝     * ⎕OFFs now when running as a service
       ⍝\\
       ⍝ For information regarding older versions see <https://github.com/aplteam/ServiceState/releases>
     ∇
