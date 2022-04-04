@@ -12,9 +12,9 @@ In you application workspace you need to have a function on `⎕LX` similar to t
 
 ```
       Start;ps
-[1]      ps←#.ServiceState.CreateParmSpace
-[2]      ps.ride←1
-[3]      #.ServiceState.Init ps
+[1]   ps←#.ServiceState.CreateParmSpace
+[2]   ps.ride←1
+[3]   #.ServiceState.Init ps
 [4]   :If #.ServiceState.IsRunningAsService
 [5]      {#.TestService.Run ⍵}&⍬
 [6]      ⎕DQ'.'
@@ -24,9 +24,9 @@ In you application workspace you need to have a function on `⎕LX` similar to t
 [10] :EndIf
 ```
 
-Note that this example focuses on getting the application running as a service. For the purpose of demonstrating how to overwrite defaults (no RIDE) it shows how to create a parameter space with default settings (line [1]) and then overwrite a setting (line [2]).
+Note that this example focuses on getting the application running as a service. For the purpose of demonstrating how to overwrite defaults (no RIDE) it shows how to create a parameter space with default settings on line [1] and then overwrite a default on line [2].
 
-If you are happy with the defaults (which you can check by executing `#.ServiceState.CreateParmSpace.∆List`) then you can specify `⍬` as the right argument of `#.ServiceState.Init` in line [3].
+If you are happy with the defaults anyway (which you can check by executing `#.ServiceState.CreateParmSpace.∆List`) then you can specify `⍬` as the right argument of `#.ServiceState.Init` in line [3].
 
 Remarks:
 
