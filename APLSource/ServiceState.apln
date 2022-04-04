@@ -65,7 +65,7 @@
 
     ∇ r←Version
       :Access Public Shared
-      r←'ServiceState' '4.0.0+12' '2022-04-04'
+      r←'ServiceState' '4.0.0+13' '2022-04-04'
     ∇
 
     ∇ History
