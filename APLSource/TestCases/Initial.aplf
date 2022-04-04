@@ -1,5 +1,5 @@
  r←Initial;rc;more;cmd
- (⊂⎕SRC ##.ServiceState)⎕NPUT(FilesAndDirs.PWD,'\TestService\ServiceState.apln')1
+ (⊂⎕SRC ##.ServiceState)⎕NPUT(##.CiderConfig.HOME,'\TestService\ServiceState.apln')1
  :If 0=APLTreeUtils2.IsRunningAsAdmin
      ⎕←'*** Sorry, you need admin rights in order to run the test suite.'
      0 0⍴⍞,0/⎕←'Press <enter> to continue'
