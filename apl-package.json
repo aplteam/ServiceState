@@ -19,5 +19,5 @@
   source: "APLSource/ServiceState.apln",
   tags: "windows-services,scm",
   userCommandScript: "",
-  version: "4.0.0+15",
+  version: "5.0.0+16",
 }

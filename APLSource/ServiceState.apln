@@ -59,19 +59,31 @@
 ⍝   give you a ride, not `ServiceState`.\\
 ⍝ That's why this feature was removed from `ServcieState`.\\
 ⍝ Homepage: <https://github.com/aplteam/ServiceState>\\
-⍝ Kai Jaeger ⋄ APL Team Ltd\\
+⍝ Kai Jaeger
 
     ⎕IO←1 ⋄ ⎕ML←1
 
     ∇ r←Version
+    ⍝ Returns the version number from `TatinVars` if possible.
+    ⍝ See also `History`
       :Access Public Shared
-      r←'ServiceState' '4.0.0+14' '2022-04-04'
+      :If 0<##.⎕NC'TatinVars.CONFIG'
+          r←(⎕JSON⍠('Dialect' 'JSON5')⊢##.TatinVars.CONFIG).version
+      :Else
+    ⍝ When a script was not loaded with Tatin, there will be no namespace `TatinVars`.
+    ⍝ In such cases we cannot provide a version number, so we return just ''.
+          r←''
+      :EndIf
     ∇
 
     ∇ History
       :Access Public Shared
-      ⍝ * 4.0.0:
-      ⍝   * BREAKING CHANGEs: 
+      ⍝ * 5.0.0 from 205-04-09
+      ⍝   * Potentially breaking: `Version` now returns a char vector
+      ⍝   * Packages updated
+      ⍝   * "Make" improved
+      ⍝ * 4.0.0
+      ⍝   * BREAKING CHANGEs:
       ⍝     * Niladic functions replaced by two sub-classes ("CONTROL" and "STATE") with
       ⍝       read-only fields for the different values.
       ⍝     * ⎕OFFs now when running as a service

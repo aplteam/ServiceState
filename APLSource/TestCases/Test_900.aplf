@@ -1,0 +1,12 @@
+ R←Test_900(stopFlag batchFlag);⎕TRAP;version
+⍝ Execise the `Version function
+⍝ R gets one of: 0=Okay, 1=test case failed, ¯1=test case was not executed due to the "batchFlag"
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+ R←T._Failed
+
+ version←##.ServiceState.Version
+ →T.PassesIf 1=≡version
+ →T.PassesIf' '=1↑0⍴version
+ →T.PassesIf∧/⎕D∊⍨{⍵↑⍨¯1+⌊/⍵⍳'-+'}version~' .'
+
+ R←T._OK
